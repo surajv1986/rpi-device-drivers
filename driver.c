@@ -59,7 +59,7 @@ static int etx_release(struct inode *inode, struct file *file)
 
 static ssize_t etx_read(struct file *filp, char __user *buf, size_t len, loff_t *off)
 {
-	if (copy_to_user(kernel_buffer, buf, len)) {
+	if (copy_to_user(buf, kernel_buffer, mem_size)) {
 		pr_err("Data read error \n");
 	}
 	pr_info("Data read: Done!\n");
@@ -91,10 +91,18 @@ static int __init etx_driver_init(void)
 	cdev_init(&etx_cdev, &fops);
 
 	/* Adding character device to the system */
+	if ((cdev_add(&etx_cdev, dev, 1)) < 0) {
+		pr_info("Cannot add the device to the system\n");
+		goto r_class;
+	
+	}
+
+	/* Creating Struct class */
 	if ((dev_class = class_create(THIS_MODULE, "etx_class")) == NULL) {
 		pr_info("Cannot create the struct class\n");
 		goto r_class;
 	}
+
 
 	/* Creating device */
 	if ((device_create(dev_class, NULL, dev, NULL, "etx_device")) == NULL) {
