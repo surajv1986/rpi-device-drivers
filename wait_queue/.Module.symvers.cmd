@@ -1,0 +1,1 @@
+cmd_/home/pi/driver_programs/wait_queue/Module.symvers := sed 's/ko$$/o/' /home/pi/driver_programs/wait_queue/modules.order | scripts/mod/modpost -m -a   -o /home/pi/driver_programs/wait_queue/Module.symvers -e -i Module.symvers   -T -
