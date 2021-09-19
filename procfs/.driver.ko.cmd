@@ -1,0 +1,1 @@
+cmd_/home/pi/driver_programs/procfs/driver.ko := ld -r  -EL  --build-id=sha1  -T scripts/module.lds -o /home/pi/driver_programs/procfs/driver.ko /home/pi/driver_programs/procfs/driver.o /home/pi/driver_programs/procfs/driver.mod.o;  true
